@@ -1,6 +1,8 @@
 <template>
     <div>
-        <div id='file-upload' v-cloak @drop.prevent='addFile' @dragover.prevent>
+        <div id='file-upload' class='content-panel'
+            v-cloak @drop.prevent='addFile' @dragover.prevent>
+
             <h2>Drag &amp; drop your file</h2>
 
             <UploadIcon v-if='!files.length'/>
@@ -57,17 +59,7 @@ export default {
 <style scoped>
 
 #file-upload {
-    border-radius: 2em;
-    border: solid 3px navy;
-    box-shadow: 2px 2px 2px 1px #aaa;
-
-    position: relative;
-    padding: 5px;
     min-height: 60vh;
-}
-
-.submit-button {
-    margin: 1em auto;
 }
 
 </style>
