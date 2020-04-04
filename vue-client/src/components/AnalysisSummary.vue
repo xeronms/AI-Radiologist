@@ -9,10 +9,12 @@
     </v-flex>
     <v-flex md4>
       <h1 class='primary--text'>{{scoreMessage}}%</h1>
-      <h2>It most likely is COVID-19</h2>
+      <h2>{{ scoreDescription }}</h2>
 
-      <p>File name: {{file.name}}</p>
-      <p>File size: {{file.size}}B</p>
+      <v-btn v-on:click='$emit("restart")'
+             color='primary' rounded>
+        Try with another picture
+      </v-btn>
     </v-flex>
 
     <img id="canvas-holder" style='position:absolute; visibility: hidden'/>
@@ -28,9 +30,10 @@ export default {
     data: function() {
         return {
             scoreMessage: '?',
+            scoreDescription: 'It most likely is COVID-19',
             canvas: null,
             ctx: null,
-            imageData: null
+            imageData: null,
         };
     },
     mounted: function() {
@@ -48,6 +51,13 @@ export default {
             // Get and display score.
             const score = Math.random();
             this.scoreMessage = `${Math.round(score * 100)}`;
+            this.scoreDescription = this.getScoreDescription(score);
+        },
+        getScoreDescription(score) {
+            if (score < 0.4)  return 'It probably isn\'t COVID-19-related.';
+            if (score < 0.6)  return 'Hard to say...';
+            if (score < 0.9)  return 'It might is COVID-19. Seek medical attention.';
+            else return 'COVID-19 is likely. Seek medical attention.';
         },
         imageUrl: function() {
             return URL.createObjectURL(this.file);

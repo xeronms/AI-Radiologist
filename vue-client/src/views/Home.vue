@@ -2,7 +2,7 @@
   <div class="home">
     <v-row class="text-center">
       <v-col cols="12">
-        <AnalysisSummary v-if='analysisInProgress' :file='file'/>
+        <AnalysisSummary v-if='analysisInProgress' :file='file' v-on:restart='restart'/>
         <FileUpload v-else v-on:submit='fileSubmitted'/>
       </v-col>
     </v-row>
@@ -30,6 +30,9 @@ export default {
     fileSubmitted: function(f) {
       this.file = f;
       this.analysisInProgress = true;
+    },
+    restart: function() {
+      this.analysisInProgress = false;
     }
   }
 }

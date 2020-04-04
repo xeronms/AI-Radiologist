@@ -11,4 +11,5 @@
 
 .image-preview {
     border-radius: 2em;
+    max-height: 70vh;
 }
