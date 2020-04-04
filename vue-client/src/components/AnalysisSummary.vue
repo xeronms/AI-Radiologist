@@ -17,11 +17,7 @@
       </v-btn>
     </v-flex>
 
-<<<<<<< Updated upstream
     <img id='canvas-holder'/>
-=======
-    <img id="canvas-holder" style='position:absolute; visibility: hidden'/>
->>>>>>> Stashed changes
   </v-layout> 
 </template>
 
