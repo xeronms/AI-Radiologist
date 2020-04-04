@@ -40,11 +40,15 @@ export default {
             }
 
             if (e.dataTransfer.files.length > 1) {
-                alert('Not more than 1 file!');
+                alert('No more than 1 file!');
             }
 
-            e.dataTransfer.files.forEach(element => {
-                this.files.push(element);
+            e.dataTransfer.files.forEach(f => {
+                if (f.type.match(/image.*/)) {
+                    this.files.push(f);
+                } else {
+                    alert(`${f.name} is not an image!`);
+                }
             });
         },
         imageUrl: function() {
