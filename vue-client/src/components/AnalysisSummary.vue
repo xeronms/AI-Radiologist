@@ -8,13 +8,17 @@
       </v-img>
     </v-flex>
     <v-flex md4>
-      <h1 class='primary--text'>{{scoreMessage}}%</h1>
-      <h2>{{ scoreDescription }}</h2>
+      <div v-if='scoreMessage != null'>
+          <h1 class='primary--text'>{{scoreMessage}}%</h1>
+          <h2>{{ scoreDescription }}</h2>
 
-      <v-btn v-on:click='$emit("restart")'
-             color='primary' rounded>
-        Try with another picture
-      </v-btn>
+          <v-btn v-on:click='$emit("restart")'
+                  color='primary' rounded>
+              Try with another picture
+          </v-btn>
+      </div>
+      <v-icon v-else x-large>mdi-loading mdi-spin</v-icon>
+
     </v-flex>
 
     <img id='canvas-holder'/>
@@ -31,7 +35,7 @@ export default {
     },
     data: function() {
         return {
-            scoreMessage: '?',
+            scoreMessage: null,
             scoreDescription: 'It most likely is COVID-19',
             canvas: null,
             ctx: null,
