@@ -2,7 +2,7 @@
     <v-layout row justify-space-around class='content-panel'>
     <v-flex md8>
       <v-img
-        contain class="shrink"
+        contain class="shrink image-preview"
         :src='imageUrl()'
         alt='Your image'>
       </v-img>

@@ -8,3 +8,7 @@
     position: relative;
     padding: 5px;
 }
+
+.image-preview {
+    border-radius: 2em;
+}

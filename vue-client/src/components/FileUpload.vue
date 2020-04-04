@@ -9,7 +9,8 @@
             <v-img v-else
                 :src='imageUrl()'
                 alt='Your image'
-                transition="scale-transition"
+                transition='scale-transition'
+                class='shrink image-preview'
                 contain/>
         </div>
 
