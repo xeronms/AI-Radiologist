@@ -61,7 +61,7 @@ export default {
 
             console.log('Loading model...');
             let model = await tf.loadLayersModel(MODEL_PATH);
-
+            console.log('Model loaded.');
             const imageTensor3d = tf.browser
                                     .fromPixels(this.imageData, 3)
                                     .resizeBilinear([224, 224])
@@ -71,7 +71,6 @@ export default {
 
             console.dir(imageTensor3d);
             console.dir(imageTensor4d);
-
             const prediction = model.predict(imageTensor4d, {batch_size: 1});
             
             console.log("prediction.print()");
@@ -79,16 +78,19 @@ export default {
             console.log("tostring: \n"+prediction.toString());
             console.log("argMax():");
             prediction.argMax().print();
-
+            //prediction.argMax().dataSync()[0];
             // Get and display score.
-            const score = prediction.argMax().dataSync()[0];
+            const reg = /\d+\.\d+/g;
+            const score = prediction.toString().match(reg)[0];
             console.log(score);
-            this.scoreMessage = `${Math.round(score * 100)}`;
+            this.scoreMessage = `${score * 100}`;
+            // this.scoreMessage = `${Math.round(score * 100)}`;
+            this.getScoreDescription(score);
         },
         getScoreDescription(score) {
             if (score < 0.4)  return 'It probably isn\'t COVID-19-related.';
             if (score < 0.6)  return 'Hard to say...';
-            if (score < 0.9)  return 'It might is COVID-19. Seek medical attention.';
+            if (score < 0.9)  return 'It might be COVID-19. Seek medical attention.';
             else return 'COVID-19 is likely. Seek medical attention.';
         },
         imageUrl: function() {
