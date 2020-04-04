@@ -1,25 +1,26 @@
 <template>
-    <v-layout row justify-space-around class='content-panel'>
-    <v-flex md8>
-      <v-img
-        contain class="shrink image-preview"
-        :src='imageUrl()'
-        alt='Your image'>
-      </v-img>
-    </v-flex>
-    <v-flex md4>
-      <div v-if='scoreMessage != null'>
-          <h1 class='primary--text'>{{scoreMessage}}%</h1>
-          <h2>{{ scoreDescription }}</h2>
+    <v-layout row wrap class='content-panel'>
+      <v-flex md8>
+        <v-img
+          contain class="shrink image-preview"
+          :src='imageUrl()'
+          alt='Your image'>
+        </v-img>
+      </v-flex>
+      <v-flex md4>
+        <v-layout column justify-space-around fill-height>
+          <div v-if='scoreMessage != null'>
+            <h1 class='primary--text'>{{scoreMessage}}%</h1>
+            <h2>{{ scoreDescription }}</h2>
 
-          <v-btn v-on:click='$emit("restart")'
-                  color='primary' rounded>
-              Try with another picture
-          </v-btn>
-      </div>
-      <v-icon v-else x-large>mdi-loading mdi-spin</v-icon>
-
-    </v-flex>
+            <v-btn v-on:click='$emit("restart")'
+                    color='primary' rounded>
+                Try with another picture
+            </v-btn>
+          </div>
+          <v-icon v-else x-large>mdi-loading mdi-spin</v-icon>
+        </v-layout>
+      </v-flex>
 
     <img id='canvas-holder'/>
   </v-layout> 
