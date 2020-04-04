@@ -17,7 +17,7 @@
       </v-btn>
     </v-flex>
 
-    <img id="canvas-holder" style='position:absolute; visibility: hidden'/>
+    <img id='canvas-holder'/>
   </v-layout> 
 </template>
 
@@ -46,7 +46,7 @@ export default {
     methods: {
         computeScore: function() {
             // Use imageData.
-            console.dir(this.imageData);
+            // console.dir(this.imageData);
 
             // Get and display score.
             const score = Math.random();
@@ -84,3 +84,10 @@ export default {
 }
 </script>
 
+
+<style scoped>
+#canvas-holder {
+    position: fixed;
+    visibility: hidden;
+}
+</style>
