@@ -1,6 +1,6 @@
 
 .content-panel {
-    border-radius: 2em;
+    border-radius: .5em;
     border: solid 3px navy;
     box-shadow: 2px 2px 2px 1px #aaa;
     margin: 1em auto;
@@ -10,6 +10,6 @@
 }
 
 .image-preview {
-    border-radius: 2em;
+    border-radius: .5em;
     max-height: 70vh;
 }

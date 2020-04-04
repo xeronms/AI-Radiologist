@@ -3,7 +3,7 @@
         <div id='file-upload' class='content-panel'
             v-cloak @drop.prevent='addFile' @dragover.prevent>
 
-            <h2>Drag &amp; drop your file</h2>
+            <h2 class='primary--text'>Drag &amp; drop your file</h2>
 
             <UploadIcon v-if='!files.length'/>
             <v-img v-else
@@ -15,7 +15,7 @@
         </div>
 
         <v-btn :disabled='!canSubmit()' v-on:click='$emit("submit", files[0])'
-               x-large color='primary' class='submit-button' rounded
+               x-large color='info' class='submit-button' rounded
             >Submit</v-btn>
     </div>
 </template>
