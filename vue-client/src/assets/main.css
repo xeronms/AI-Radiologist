@@ -1,15 +1,25 @@
-
+.logo {
+    align-items: center;
+    text-align: center !important;
+    font: Roboto;
+}
 .content-panel {
-    border-radius: 2em;
-    border: solid 3px navy;
-    box-shadow: 2px 2px 2px 1px #aaa;
+    border: solid 2px #932026;
     margin: 1em auto;
 
+    -webkit-box-shadow: 0px 0px 5px 1px #932026;
+    -moz-box-shadow: 0px 0px 5px 1px #932026;
+    box-shadow: 0px 0px 5px 1px #932026;
+
     position: relative;
-    padding: 5px;
+    padding: 2em;
+    background-color: #393939;
 }
 
 .image-preview {
-    border-radius: 2em;
     max-height: 70vh;
+}
+
+.try-again-btn{
+    margin-top: 1em;
 }

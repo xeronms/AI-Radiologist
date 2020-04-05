@@ -13,7 +13,7 @@
             <h1 class='primary--text'>{{scoreMessage}}%</h1>
             <h2>{{ scoreDescription }}</h2>
 
-            <v-btn v-on:click='$emit("restart")'
+            <v-btn class='try-again-btn' v-on:click='$emit("restart")'
                     color='primary' rounded>
                 Try with another picture
             </v-btn>
@@ -54,33 +54,40 @@ export default {
         computeScore: async function() {
             // Use imageData.
             console.dir(this.imageData);
-
-            // var rgb = [[]];
-            // for (var i=0; i < this.imageData.lenght; i+4){
-            //     rgb.push([this.imageData[i],
-            //                 this.imageData[i+1],
-            //                 this.imageData[i+2]]);
-            // }
-
             const MODEL_PATH ='http://localhost:8080/model/model.json'
 
             console.log('Loading model...');
             let model = await tf.loadLayersModel(MODEL_PATH);
             console.log('Model loaded.');
+
+            // const testTensor = new tf.zeros([1,224,224,3]);
+            // const predictionTest = model.predict(testTensor, {batch_size: 1});
+            // console.log(predictionTest.toFloat());
+
             const imageTensor3d = tf.browser
                                     .fromPixels(this.imageData, 3)
                                     .resizeBilinear([224, 224])
+                                    // .reshape([1,224,224,3])
                                     .cast('float32')
                                     .div(tf.scalar(255));
-            const imageTensor4d = tf.tensor4d(Array.from(imageTensor3d.dataSync()),[1,224,224,3]);
-
             console.dir(imageTensor3d);
-            console.dir(imageTensor4d);
-            const prediction = model.predict(imageTensor4d, {batch_size: 1});
             
-            console.log("prediction.print()");
+            const imageTensor4d = tf.tensor4d(Array.from(imageTensor3d.dataSync()),[1,224,224,3]);
+            // const zeroTensor = new tf.tensor1d([1,224,224,3]);
+            // console.dir(zeroTensor);
+            // const imageTensor4d = tf.stack([imageTensor3d, zeroTensor]);
+            // // dispose 
+            // imageTensor3d.dispose();
+            // console.dir(imageTensor4d);
+            const prediction = model.predict(imageTensor4d, {batch_size: 1});
+
+            // console.dir(prediction);
+            // console.log(prediction.arraySync());
+            // console.log(prediction.data());
+            // console.log(prediction.toFloat());
+            
+            console.log("Prediction printed:");
             prediction.print();
-            console.log("tostring: \n"+prediction.toString());
             console.log("argMax():");
             prediction.argMax().print();
             //prediction.argMax().dataSync()[0];
@@ -89,8 +96,11 @@ export default {
             const score = prediction.toString().match(reg)[0];
             console.log(score);
             this.scoreMessage = `${score * 100}`;
-            // this.scoreMessage = `${Math.round(score * 100)}`;
+            this.scoreMessage = `${Math.round(score * 100)}`;
             this.getScoreDescription(score);
+            
+            // dispose 
+            imageTensor3d.dispose();
         },
         getScoreDescription(score) {
             if (score < 0.4)  return 'It probably isn\'t COVID-19-related.';
