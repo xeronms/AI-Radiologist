@@ -1,18 +1,39 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <v-row class="text-center">
+      <v-col cols="12">
+        <AnalysisSummary v-if='analysisInProgress' :file='file' v-on:restart='restart'/>
+        <FileUpload v-else v-on:submit='fileSubmitted'/>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import FileUpload from '../components/FileUpload';
+import AnalysisSummary from '../components/AnalysisSummary';
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    FileUpload,
+    AnalysisSummary
+  },
+  data: function() {
+    return {
+      analysisInProgress: false,
+      file: null
+    };
+  },
+  methods: {
+    fileSubmitted: function(f) {
+      this.file = f;
+      this.analysisInProgress = true;
+    },
+    restart: function() {
+      this.analysisInProgress = false;
+    }
   }
 }
 </script>
